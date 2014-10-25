@@ -1,0 +1,14 @@
+doctype html
+html(ng-app='negombo')
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/javascripts/angular/vendor/angular.min.js')
+        script(src='/javascripts/angular/vendor/angular-soundmanager.js')
+        script(src='/javascripts/angular/application/application.js')
+        script(src='/javascripts/angular/common/directives/ng-swing.js')
+        script(src='/javascripts/angular/common/directives/ng-full-page.js')
+    body
+        include  header
+        block content
+        include footer

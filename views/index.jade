@@ -1,0 +1,25 @@
+extends layout
+block content
+    div(ng-controller='ApplicationCtrl')
+        div.main-container(ng-full-page)
+            div.main-poster
+                img(ng-swing, src='images/main.jpg')
+            div.main-title We Sing Together
+                div.main-subtitle
+                    span.underscore Negombo,
+                    |  Sri Lanka
+        div.profile-container(ng-full-page)
+            div.profile-jumbo
+                div.profile-title Local Music Community
+                div.profile-image
+                    img(src='images/michael_seba.jpg')
+
+                ul
+                    li(ng-repeat="song in songs")
+                        button(music-player="play",  add-song="song") {{ song.title }}
+                sound-manager
+
+                p Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentPostion }} / {{ currentDuration }})
+                div.seekBase(seek-track)
+                    div.seekLoad(ng-style="{width : ( progress + '%' ) }")
+
