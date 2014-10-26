@@ -1,19 +1,33 @@
+@font-face {
+  font-family: 'Telugu';
+  font-style: normal;
+  font-weight: 400;
+  src: url('font/TeluguMN.woff');
+}
+@font-face {
+  font-family: 'Telugu';
+  font-style: normal;
+  font-weight: 700;
+  src: url('font/TeluguMN-Bold.woff');
+}
 body {
   margin: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Telugu', sans-serif;
+  font-size: 14px;
 }
 .header{
   width: 100%;
-  height: 60px;
-  background-color: #E84343;
+  height: 88px;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#CE1E16), to(#A21913));
+  background: -moz-linear-gradient(top, #CE1E16, #A21913);
   .logo{
     background-image: url(../images/srilanka_logo.png);
     width: 162px;
     height: 162px;
     position: absolute;
     z-index: 1;
-    left: 50px;
-    top: 20px;
+    left: 68px;
+    top: 18px;
   }
   .navigate{
     float: right;
@@ -38,16 +52,17 @@ body {
     font-weight: 700;
     z-index: 1;
     position: absolute;
-    left: 251px;
-    top: 60px;
+    left: 400px;
+    top: 54px;
     .main-subtitle{
       font-size: 17px;
       font-weight: 400;
+      color: #ffffff;
     }
   }
   .main-poster img{
     position: absolute;
-    height: 100%;
+    width: 100%;
   }
   .move{
     -webkit-animation: move 3s ease infinite;
@@ -61,7 +76,9 @@ body {
 }
 .profile-container{
   width: 100%;
-  background-color: #FFCC00;
+  height: 800px;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#428b3a), to(#0e8c97));
+  background: -moz-linear-gradient(top, #428b3a, #0e8c97);
   position: relative;
   .profile-jumbo{
     width: 50%;
@@ -71,14 +88,50 @@ body {
     left: 0;
     right: 0;
     top: -80px;
+    .profile-image{
+      float: left;
+      position: relative;
+      width: 316px;
+      .profile-square{
+        position: absolute;
+        top: 174px;
+        left: 20px;
+      }
+      .profile-name{
+        position: absolute;
+        top: 220px;
+        left: 20px;
+        color: #ffffff;
+        font-size: 18px;
+      }
+      p{
+        color: #ffffff;
+        margin: 24px;
+      }
+    }
     .profile-title{
       font-size: 27px;
       color: #ffffff;
       padding: 10px;
     }
+  }
+  .profile-music{
+    width: 100%;
+    height: 140px;
+    position: absolute;
+    bottom: 0px;
+    background-color: #E6E6E6;
     img{
-      width: 100%;
-      height: 100%;
+      float: left;
+      margin: 16px;
+    }
+    div{
+      float: left;
+      line-height: 140px;
+      font-size: 17px;
+      cursor: pointer;
+      color: #545454;
+      margin-left: 75px;
     }
   }
 

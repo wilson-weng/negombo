@@ -4,39 +4,18 @@ var negombo = angular.module('negombo', [
     'directives.ngFullPage'
 ]);
 
-negombo.controller('ApplicationCtrl', ['$scope', function($scope){
-    $scope.songs = [
-        {
-            id: 1,
-            title: 'Api Beach',
-            artist: 'Api Sindu Kiemu',
-            url: 'https://s3-ap-southeast-1.amazonaws.com/negombo/music/shitaima+-+api+sindu+kiemu+-+01+api+beach.mp3'
-        },
-        {
-            id: 2,
-            title: 'mal',
-            artist: 'Api Sindu Kiemu',
-            url: 'https://s3-ap-southeast-1.amazonaws.com/negombo/music/shitaima+-+api+sindu+kiemu+-+02+mal1.mp3'
-        },
-        {
-            id: 3,
-            title: 'Michael Congo',
-            artist: 'Api Sindu Kiemu',
-            url: 'https://s3-ap-southeast-1.amazonaws.com/negombo/music/shitaima+-+api+sindu+kiemu+-+03+michael+congo.mp3'
-        },
-        {
-            id: 4,
-            title: 'Ahagena Flamingos',
-            artist: 'Api Sindu Kiemu',
-            url: 'https://s3-ap-southeast-1.amazonaws.com/negombo/music/shitaima+-+api+sindu+kiemu+-+04+ahagena+flamingos.mp3'
-        },
-        {
-            id: 5,
-            title: 'Api Con Samith',
-            artist: 'Api Sindu Kiemu',
-            url: 'https://s3-ap-southeast-1.amazonaws.com/negombo/music/shitaima+-+api+sindu+kiemu+-+05+api+con+samith.mp3'
-        }
-    ];
+negombo.controller('ApplicationCtrl', ['$scope', '$http', function($scope, $http){
+    console.log('send request');
+    $http.get('/api/songs')
+        .success(function(data) {
+            angular.forEach(data, function(song){
+                song['id'] = song._id;
+            });
+            $scope.songs = data;
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
     $scope.playlist = [
         {
             id: 'one',

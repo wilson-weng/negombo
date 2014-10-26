@@ -6,9 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
+var mongoose = require('mongoose');
+
+var database = require('./config/database'); // load the database config
+
+// configuration
+mongoose.connect(database.url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +29,6 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
