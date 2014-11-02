@@ -9,10 +9,8 @@ router.get('/', function(req, res) {
 });
 
 router.get('/api/songs', function(req, res) {
-    console.log('get request');
     songs.find(function(err, songs) {
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-        console.log('route', songs);
         if (err)
             res.send(err);
         res.json(songs); // return all todos in JSON format

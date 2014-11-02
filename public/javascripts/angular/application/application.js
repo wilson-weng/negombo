@@ -1,11 +1,11 @@
 var negombo = angular.module('negombo', [
     'angularSoundManager',
     'directives.ngSwing',
-    'directives.ngFullPage'
+    'directives.ngFullPage',
+    'directives.ngMoveProfile'
 ]);
 
 negombo.controller('ApplicationCtrl', ['$scope', '$http', function($scope, $http){
-    console.log('send request');
     $http.get('/api/songs')
         .success(function(data) {
             angular.forEach(data, function(song){
