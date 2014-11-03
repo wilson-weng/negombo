@@ -24,9 +24,29 @@ block content
                     p Six years ago, I was a singer. I won the Jubilee Super Star Competition of Sri Lanka, the reward is either a trip to Singapore or some cash. I choose the cash to hold a beach party and invite all my friends to enjoy the food and music. Going to Singapore only makes myself happy, but a party makes everyone happy, which is what I want.
                       | Now, I’m a tuk-tuk driver. I guide travellers around Negombo, I sing to them and hold beach party for them. I love this job because now I can share happiness to people all around the world.
             div.profile-music
-                img(src='images/music_icon.png')
-                div(ng-repeat="song in songs", music-player="play",  add-song="song") {{ song.title }}
+                img.song-area-icon(src='images/music_icon.png')
+                div.song-area
+                    div.song-item(ng-repeat="song in songs", ng-song-item)
+                        img(src='images/icons/music_play_icon.png', ng-show='icon=="play"', music-player="play", add-song="song", ng-click='activeItem()')
+                        img(src='images/icons/music_stop_icon.png', ng-show='icon=="stop"', stop-music, , ng-click='recoverItem()')
+                        p {{ song.title }}
                 sound-manager
-
+        div.tour-container(ng-full-page)
+            div.tour-title Experience With Local Musicians
+            div.slide-area
+                div.slide-item
+                    img(src='images/tours/beach_party/bp_1.jpg')
+                div.slide-item
+                    img(src='images/tours/beach_party/bp_2_1.jpg')
+                div.slide-item
+                    img(src='images/tours/beach_party/bp_2_2.jpg')
+                div.slide-item
+                    img(src='images/tours/beach_party/bp_3.jpg')
+                div.slide-item
+                    img(src='images/tours/beach_party/bp_3_1.jpg')
+                div.slide-item
+                    img(src='images/tours/beach_party/bp_3_2.jpg')
+                div.slide-item
+                    img(src='images/tours/beach_party/bp_4.jpg')
 
 
