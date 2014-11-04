@@ -32,7 +32,10 @@ block content
                         p {{ song.title }}
                 sound-manager
         div.tour-container(ng-full-page)
-            div.tour-title Experience With Local Musicians
+            div.tour-header
+                div.tour-title Experience With Local Musicians
+                div.tour-tab-area
+                    div.tour-tab(ng-repeat="tour in tours", ng-class="{active: currentTour==tour}") {{tour}}
             div.slide-area
                 div.slide-item
                     img(src='images/tours/beach_party/bp_1.jpg')

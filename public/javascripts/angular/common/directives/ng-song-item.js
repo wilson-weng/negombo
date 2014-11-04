@@ -3,10 +3,8 @@ angular.module('directives.ngSongItem', [])
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                scope.isPlaying = false;
-                console.log(scope);
                 element.on("mouseenter", function(){
-                    if(scope.isPlaying){
+                    if(element.hasClass('active')){
                         scope.icon = 'stop';
                     }else{
                         scope.icon = 'play';
@@ -21,13 +19,11 @@ angular.module('directives.ngSongItem', [])
                 });
                 scope.activeItem = function(){
                     scope.icon = 'stop';
-                    scope.isPlaying = true;
                     element.parent().children().removeClass('active');
                     element.addClass('active');
                 };
                 scope.recoverItem = function(){
                     scope.icon = 'play';
-                    scope.isPlaying = false;
                     element.removeClass('active');
                 };
             }
