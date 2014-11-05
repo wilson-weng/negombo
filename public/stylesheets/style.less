@@ -196,11 +196,23 @@ body {
     position: relative;
     border: solid 1px #bcbec1;
     margin: 20px;
-    padding: 20px;
     background-color: rgba(255, 255, 255, 0.1);
-    .slide-item{
+    .slide-container{
       position: absolute;
-      float: left;
+      .slide-item{
+        padding: 20px;
+        width: 555px;
+        height: 100%;
+        display: table-cell;
+        vertical-align: top;
+        border: solid 0px #bcbec1;
+        border-right-width: 1px;
+        p{
+          color: #ffffff;
+          font-size: 18px;
+          margin: 0;
+        }
+      }
     }
   }
 }
@@ -209,4 +221,27 @@ body {
 }
 a {
   color: #00B7FF;
+}
+.slide-icon {
+  display: inline-block;
+  width: 77px;
+  height: 77px;
+  background-image: url(../images/icons/arrow.png);
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.slide-icon-left{
+  background-position-x: 0px;
+  background-position-y: 77px;
+  left: 20px;
+}
+.slide-icon-right{
+  background-position-x: 77px;
+  background-position-y: 77px;
+  right: 20px;
+}
+.slide-icon-active{
+  background-position-y: 0px;
 }

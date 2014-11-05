@@ -37,19 +37,9 @@ block content
                 div.tour-tab-area
                     div.tour-tab(ng-repeat="tour in tours", ng-class="{active: currentTour==tour}") {{tour}}
             div.slide-area
-                div.slide-item
-                    img(src='images/tours/beach_party/bp_1.jpg')
-                div.slide-item
-                    img(src='images/tours/beach_party/bp_2_1.jpg')
-                div.slide-item
-                    img(src='images/tours/beach_party/bp_2_2.jpg')
-                div.slide-item
-                    img(src='images/tours/beach_party/bp_3.jpg')
-                div.slide-item
-                    img(src='images/tours/beach_party/bp_3_1.jpg')
-                div.slide-item
-                    img(src='images/tours/beach_party/bp_3_2.jpg')
-                div.slide-item
-                    img(src='images/tours/beach_party/bp_4.jpg')
-
+                ng-slide
+                    div.slide-item(ng-repeat="slide in tourSlides[currentTour] | orderBy:'page':reverse")
+                        p(ng-if="slide.description_position=='top'") {{slide.description}}
+                        img(ng-src="{{slide.image}}")
+                        p(ng-if="slide.description_position=='bottom'") {{slide.description}}
 
