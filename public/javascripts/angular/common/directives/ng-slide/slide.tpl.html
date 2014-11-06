@@ -1,3 +1,3 @@
 <div class="slide-container" ng-transclude></div>
-<div class="slide-icon slide-icon-left" ng-click="slideLeft()" ng-mouseenter="active()" ng-mouseleave="recover" ng-if="slideIndex!=0"/>
-<div class="slide-icon slide-icon-right" ng-click="slideRight()" ng-mouseenter="active()" ng-mouseleave="recover" ng-if="slideIndex!=totalSlides-1"/>
+<div class="slide-icon slide-icon-left" ng-class="{'slide-icon-active': activeIcon=='left'}" ng-click="slideLeft()" ng-mouseenter="active('left')" ng-mouseleave="recover()" ng-if="slideIndex!=0"/>
+<div class="slide-icon slide-icon-right" ng-class="{'slide-icon-active': activeIcon=='right'}" ng-click="slideRight()" ng-mouseenter="active('right')" ng-mouseleave="recover()" ng-if="slideIndex!=totalSlides-1"/>

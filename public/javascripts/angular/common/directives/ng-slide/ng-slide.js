@@ -22,18 +22,12 @@ angular.module('directives.ngSlide', [])
                     })
                 };
 
-                angular.element(document.querySelector('.slide-icon-left')).on('mouseenter', function(){
-                    angular.element(this).addClass('slide-icon-active');
-                });
-                angular.element(document.querySelector('.slide-icon-left')).on('mouseleave', function(){
-                    angular.element(this).removeClass('slide-icon-active');
-                });
-                angular.element(document.querySelector('.slide-icon-right')).on('mouseenter', function(){
-                    angular.element(this).addClass('slide-icon-active');
-                });
-                angular.element(document.querySelector('.slide-icon-right')).on('mouseleave', function(){
-                    angular.element(this).removeClass('slide-icon-active');
-                });
+                scope.active = function(side){
+                    scope.activeIcon = side;
+                };
+                scope.recover = function(){
+                    scope.activeIcon = 'none';
+                };
             }
         }
     });

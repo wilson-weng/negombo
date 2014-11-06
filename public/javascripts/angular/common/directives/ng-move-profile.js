@@ -4,7 +4,7 @@ angular.module('directives.ngMoveProfile', [])
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var height = 290; // height of the image
-                var extent = ($window.innerHeight-290-340-80-140-30>0) ? -80 : $window.innerHeight-290-340-80-140-30;
+                var extent = (720-290-340-80-140-30>0) ? -80 : 720-290-340-80-140-30;
                 var shrink = -80;
                 var oldPosition = 0;
                 var scrollDown = true;
