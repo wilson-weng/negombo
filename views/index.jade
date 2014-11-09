@@ -1,45 +1,57 @@
 extends layout
 block content
-    div(ng-controller='ApplicationCtrl')
-        div.main-container(ng-full-page)
-            div.main-poster
-                img(ng-swing, src='images/banner_pic.jpg')
-            div.main-title We Sing Together
-                div.main-subtitle
-                    span.underscore Negombo,
-                    |  Sri Lanka
-        div.profile-container
-            div.profile-jumbo(ng-move-profile)
-                div.profile-title Local Music Community
-                div.profile-image
-                    img(src='images/profile_michael_pic.png')
-                    img.profile-square(src='images/profile_square_michael.png')
-                    div.profile-name Michael
-                    p I used to be a fisherman, but the influx of tourists changed my life. I learned my English from them and most importantly, I exploit my talent of music by the tourists. They teach me guitar drum and singing. Last year I formed a band with one of my friend in Negombo and a musician from Mexico. The band is called “Api Sindu Kiemu” which in Sinhalese means “Let’s sing together”. We aims to give performances that open to all the people to join by singing, dancing or playing other instruments, breaking the wall between the audiences and the performers.
-                      | I enjoy hanging out with tourists since I can always open my horizon and learn a lot from them, and I’m also more than willing to share my talent on music to them.
-                div.profile-image
-                    img(src='images/profile_seba_pic.png')
-                    img.profile-square(src='images/profile_square_seba.png')
-                    div.profile-name Seba
-                    p Six years ago, I was a singer. I won the Jubilee Super Star Competition of Sri Lanka, the reward is either a trip to Singapore or some cash. I choose the cash to hold a beach party and invite all my friends to enjoy the food and music. Going to Singapore only makes myself happy, but a party makes everyone happy, which is what I want.
-                      | Now, I’m a tuk-tuk driver. I guide travellers around Negombo, I sing to them and hold beach party for them. I love this job because now I can share happiness to people all around the world.
-            div.profile-music
-                img.song-area-icon(src='images/music_icon.png')
-                div.song-area
-                    div.song-item(ng-repeat="song in songs", ng-song-item)
-                        img(src='images/icons/music_play_icon.png', ng-show='icon=="play"', music-player="play", add-song="song", ng-click='activeItem()')
-                        img(src='images/icons/music_stop_icon.png', ng-show='icon=="stop"', stop-music, , ng-click='recoverItem()')
-                        p {{ song.title }}
-                sound-manager
-        div.tour-container
-            div.tour-header
-                div.tour-title Experience With Local Musicians
-                div.tour-tab-area
-                    div.tour-tab(ng-repeat="tour in tours", ng-class="{active: currentTour==tour}") {{tour}}
-            div.slide-area
-                ng-slide
-                    div.slide-item(ng-repeat="slide in tourSlides[currentTour] | orderBy:'page':reverse")
-                        p(ng-if="slide.description_position=='top'") {{slide.description}}
-                        img(ng-src="{{slide.image}}")
-                        p(ng-if="slide.description_position=='bottom'") {{slide.description}}
-
+    div.main-container(ng-full-page)
+        div.main-poster
+            img(ng-swing, src='images/banner_pic.jpg')
+        div.main-title We Sing Together
+            div.main-subtitle
+                span.underscore Negombo,
+                |  Sri Lanka
+    div.profile-container(id='profile')
+        div.profile-jumbo(ng-move-profile)
+            div.profile-title Local Music Community
+            div.profile-image
+                img(src='images/profile_michael_pic.png')
+                img.profile-square(src='images/profile_square_michael.png')
+                div.profile-name Michael
+                p I used to be a fisherman, but the influx of tourists changed my life. I learned my English from them and most importantly, I exploit my talent of music by the tourists. They teach me guitar drum and singing. Last year I formed a band with one of my friend in Negombo and a musician from Mexico. The band is called “Api Sindu Kiemu” which in Sinhalese means “Let’s sing together”. We aims to give performances that open to all the people to join by singing, dancing or playing other instruments, breaking the wall between the audiences and the performers.
+                  | I enjoy hanging out with tourists since I can always open my horizon and learn a lot from them, and I’m also more than willing to share my talent on music to them.
+            div.profile-image
+                img(src='images/profile_seba_pic.png')
+                img.profile-square(src='images/profile_square_seba.png')
+                div.profile-name Seba
+                p Six years ago, I was a singer. I won the Jubilee Super Star Competition of Sri Lanka, the reward is either a trip to Singapore or some cash. I choose the cash to hold a beach party and invite all my friends to enjoy the food and music. Going to Singapore only makes myself happy, but a party makes everyone happy, which is what I want.
+                  | Now, I’m a tuk-tuk driver. I guide travellers around Negombo, I sing to them and hold beach party for them. I love this job because now I can share happiness to people all around the world.
+        div.profile-music
+            img.song-area-icon(src='images/music_icon.png')
+            div.song-area
+                div.song-item(ng-repeat="song in songs", ng-song-item)
+                    img(src='images/icons/music_play_icon.png', ng-show='icon=="play"', music-player="play", add-song="song", ng-click='activeItem()')
+                    img(src='images/icons/music_stop_icon.png', ng-show='icon=="stop"', stop-music, , ng-click='recoverItem()')
+                    p {{ song.title }}
+            sound-manager
+    div.tour-container(id='tour')
+        div.tour-header
+            div.tour-title Experience With Local Musicians
+            div.tour-tab-area
+                div.tour-tab(ng-repeat="tour in tours", ng-class="{active: currentTour==tour}") {{tour}}
+        div.slide-area
+            ng-slide
+                div.slide-item(ng-repeat="slide in tourSlides[currentTour] | orderBy:'page':reverse")
+                    p(ng-if="slide.description_position=='top'") {{slide.description}}
+                    img(ng-src="{{slide.image}}")
+                    p(ng-if="slide.description_position=='bottom'") {{slide.description}}
+    div.contact-container(id='contact')
+        div.contact-banner
+            img(src="images/contact/contact_michael.png")
+            div.contact-info
+                p.contact-name Michael
+                p.contact-detail Email: ch_risty_mic@hotmail.com
+                p.contact-detail Phone: +94 76 7540789
+        div.contact-banner
+            img(src="images/contact/contact_seba.png")
+            div.contact-info
+                p.contact-name Seba
+                p.contact-detail Phone: +94 77 2523314
+        div.logo-contact
+            img(src="images/srilanka_logo.png")

@@ -7,7 +7,7 @@ var negombo = angular.module('negombo', [
     'directives.ngSlide'
 ]);
 
-negombo.controller('ApplicationCtrl', ['$scope', '$http', function($scope, $http){
+negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorScroll', function($scope, $http, $location, $anchorScroll){
     $http.get('/api/songs')
         .success(function(data) {
             angular.forEach(data, function(song){
@@ -18,6 +18,7 @@ negombo.controller('ApplicationCtrl', ['$scope', '$http', function($scope, $http
         .error(function(data) {
             console.log('Error: ' + data);
         });
+    $scope.totalSlides = 0;
     $http.get('/api/tours')
         .success(function(data) {
             $scope.tours =[];
@@ -33,11 +34,17 @@ negombo.controller('ApplicationCtrl', ['$scope', '$http', function($scope, $http
             });
             $scope.currentTour = $scope.tours[0];
             $scope.slideIndex = 0;
-            console.log($scope.tourSlides, $scope.currentTour);
             $scope.totalSlides = $scope.tourSlides[$scope.currentTour].length;
-
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
+    $scope.scrollToElement = function(hash) {
+        // set the location.hash to the id of
+        // the element you wish to scroll to.
+        $location.hash(hash);
+
+        // call $anchorScroll()
+        $anchorScroll();
+    };
 }]);

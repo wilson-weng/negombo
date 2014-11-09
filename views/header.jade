@@ -1,7 +1,7 @@
 div.header
     div.logo
     div.navigate
-        div.navigate-item WHO WE ARE
-        div.navigate-item WHAT WE DO
-        div.navigate-item CONTACT
+        div.navigate-item(ng-click="scrollToElement('profile')") WHO WE ARE
+        div.navigate-item(ng-click="scrollToElement('tour')") WHAT WE DO
+        div.navigate-item(ng-click="scrollToElement('contact')") CONTACT
 
