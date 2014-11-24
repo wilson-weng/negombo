@@ -4,9 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer  = require('multer');
 
 var routes = require('./routes/index');
-
+var fs = require('fs');
 var app = express();
 var mongoose = require('mongoose');
 
@@ -15,6 +16,7 @@ var database = require('./config/database'); // load the database config
 // configuration
 mongoose.connect(database.url);
 
+var reviews = require('./app/models/reviews');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -28,7 +30,91 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+var s3 = require('s3');
+var client = s3.createClient({
+    maxAsyncS3: 20,     // this is the default
+    s3RetryCount: 3,    // this is the default
+    s3RetryDelay: 1000, // this is the default
+    multipartUploadThreshold: 20971520, // this is the default (20 MB)
+    multipartUploadSize: 15728640, // this is the default (15 MB)
+    s3Options: {
+        accessKeyId: "AKIAIVUAXSGP757OYBMQ",
+        secretAccessKey: "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"
+    }
+});
+
 app.use('/', routes);
+app.use(multer(
+    { dest: './temp/',
+        rename: function (fieldname, filename) {
+            return filename;
+        }
+    }
+));
+var bucket = "negombo";
+app.post('/api/upload',function(req,res){
+    var file = req.files.file;
+    var params = {
+        localFile: file.path,
+        s3Params: {
+            Bucket: bucket,
+            Key: "review/"+file.name
+        }
+    };
+    var uploader = client.uploadFile(params);
+    uploader.on('error', function(err) {
+        console.error("unable to upload:", err.stack);
+    });
+    uploader.on('end', function() {
+        console.log("done uploading");
+        fs.unlink(file.path, function (err) {
+            if (err) throw err;
+        });
+        var moments = JSON.parse(req.body.moments);
+        var uploader = req.body.uploader;
+        var createTime = req.body.createTime;
+        var index = 0;
+        var description = '';
+        for(var i=0; i<moments.length; i++){
+            if(moments[i].keyName == file.name){
+                index = moments[i].index;
+                description = moments[i].description;
+            }
+        }
+        var url = s3.getPublicUrlHttp(bucket, "review/"+file.name);
+        console.log(index, uploader, url, description, createTime);
+        reviews.count({uploader: uploader, createTime: createTime}, function(error, count){
+            if(count==0){
+                var review = new reviews({
+                    uploader: uploader,
+                    createTime: createTime,
+                    moments: [{
+                        index: index,
+                        url: url,
+                        keyName: file.name,
+                        description: description
+                    }]
+                });
+                review.save(function (err, review) {
+                    if (err) return console.error(err);
+                });
+            }else{
+                reviews.update({uploader: uploader, createTime: createTime},
+                    {$push: {"moments": {index: index,
+                        url: url,
+                        keyName: file.name,
+                        description: description
+                    }}},function(err, model){
+                        console.log(err);
+                    }
+                )
+            }
+        });
+
+
+        res.json(index);
+    });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

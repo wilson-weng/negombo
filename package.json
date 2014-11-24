@@ -14,6 +14,8 @@
     "debug": "~2.0.0",
     "jade": "~1.6.0",
     "less-middleware": "1.0.x",
-    "mongoose": "3.6.5"
+    "mongoose": "3.6.5",
+    "multer": "~0.1.6",
+    "s3": "~4.3.1"
   }
 }

@@ -14,7 +14,7 @@ angular.module('directives.ngSlide', [])
                     var left = slideWidth * scope.slideIndex;
                     container.animate({
                         left: left+'px'
-                    })
+                    });
                     scope.showSlideRightIcon = true;
                 };
                 scope.slideRight = function(){
@@ -30,7 +30,8 @@ angular.module('directives.ngSlide', [])
                     })
                 };
                 scope.$watch('totalSlides', function(){
-                    hiddenWidth = -601*scope.totalSlides + $window.innerWidth-20;
+                    //304 is the right column width plus border, 20 is the margin left
+                    hiddenWidth = -601*scope.totalSlides + $window.innerWidth-304-20;
                 });
                 scope.active = function(side){
                     scope.activeIcon = side;

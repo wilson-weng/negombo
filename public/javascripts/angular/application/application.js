@@ -1,13 +1,21 @@
 var negombo = angular.module('negombo', [
+    'flow',
     'angularSoundManager',
     'directives.ngSwing',
     'directives.ngFullPage',
     'directives.ngMoveProfile',
     'directives.ngSongItem',
-    'directives.ngSlide'
+    'directives.ngSlide',
+    'directives.ngReviewExtend',
+    'directives.ngReviewEditor',
+    'directives.ngReviewThumbnail'
 ]);
 
 negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorScroll', function($scope, $http, $location, $anchorScroll){
+    $scope.extendReview = false;
+//    setTimeout(function() {
+//        $scope.openReview();
+//    }, 1200);
     $http.get('/api/songs')
         .success(function(data) {
             angular.forEach(data, function(song){
@@ -39,6 +47,7 @@ negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorS
         .error(function(data) {
             console.log('Error: ' + data);
         });
+
     $scope.scrollToElement = function(hash) {
         // set the location.hash to the id of
         // the element you wish to scroll to.

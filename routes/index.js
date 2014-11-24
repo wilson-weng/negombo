@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var songs = require('../app/models/songs');
 var tours = require('../app/models/tours');
-
+var settings = require('../app/models/settings');
+var reviews = require('../app/models/reviews');
 /* GET home page. */
 router.get('/', function(req, res) {
     res.render('index', { title: 'Negombo' });
@@ -23,6 +24,15 @@ router.get('/api/tours', function(req, res) {
         if (err)
             res.send(err);
         res.json(songs); // return all todos in JSON format
+    });
+});
+
+router.get('/api/reviews', function(req, res) {
+    reviews.find(function(err, reviews) {
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err)
+            res.send(err);
+        res.json(reviews); // return all todos in JSON format
     });
 });
 

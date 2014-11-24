@@ -4,9 +4,8 @@ angular.module('directives.ngFullPage', [])
             restrict: 'A',
             link: function (scope, element, attrs) {
                 element.find('img').bind("load", function () {
-                    var windowRate = $window.innerHeight / $window.innerWidth;
+                    var windowRate = $window.innerHeight / ($window.innerWidth-304);
                     var imageRate = element.find('img').height() / element.find('img').width();
-                    console.log(windowRate, imageRate);
                     if (windowRate > imageRate) {
                         element.find('img').css('height', '100%');
                     } else {

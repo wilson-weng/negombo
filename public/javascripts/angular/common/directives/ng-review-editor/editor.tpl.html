@@ -1,0 +1,28 @@
+<div class="review-editor-container"
+     flow-init="{testChunks:false}"
+     flow-file-added="resizeBeforeUpload($file)"
+     flow-files-submitted="setFlow($flow)"
+     flow-file-success="onSuccsess($message)">
+    <div class="review-editor-panel" ng-repeat="moment in moments" >
+        <div class="photo-area" ng-hide="$flow.files.length>=$index+1">
+            <div class="photo-upload" ng-mouseenter="uploadActive=true" ng-mouseleave="uploadActive=false" flow-btn flow-attrs="{accept:'image/*'}">
+                <img ng-src="images/icons/uploadphoto_icon.png" ng-show="!uploadActive">
+                <img ng-src="images/icons/uploadphoto_icon_hover.png" ng-show="uploadActive">
+                <p>Choose a photo or drag photo in</p>
+            </div>
+        </div>
+
+        <div class="photo-display" ng-show="$flow.files.length>=$index+1">
+            <img flow-img="$flow.files[$index]" />
+            <div class="photo-add" ng-click="addMoment()" ng-hide="!$last">Add a new photo</div>
+        </div>
+        <div class="text-area">
+            <textarea rows="3" cols="50" placeholder="" ng-model="moment.description"/>
+        </div>
+    </div>
+</div>
+<div class="review-header" ng-click='addMoment()' ng-hide="moments.length"> + Tell You Story</div>
+<div class="review-header" ng-show="moments.length">
+    <input type="text" placeholder="your name" ng-model="uploader"/>
+    <span ng-click="upload()">& Save</span>
+</div>
