@@ -1,9 +1,9 @@
-angular.module('directives.ngReviewThumbnail', [])
-    .directive('ngReviewThumbnail', ['$http', '$filter', function ($http, $filter) {
+angular.module('directives.ngReviewList', [])
+    .directive('ngReviewList', ['$http', '$filter', function ($http, $filter) {
         return {
             restrict: 'E',
-            scope: {},
-            templateUrl: '/javascripts/angular/common/directives/ng-review-thumbnail/thumbnails.tpl.html',
+            scope: {type: '@reviewType'},
+            templateUrl: '/javascripts/angular/common/directives/ng-review-list/reviews.tpl.html',
             link: function (scope, element, attrs) {
                 scope.months = [];
                 $http.get('/api/reviews')

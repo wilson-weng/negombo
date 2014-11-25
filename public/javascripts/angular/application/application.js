@@ -8,7 +8,7 @@ var negombo = angular.module('negombo', [
     'directives.ngSlide',
     'directives.ngReviewExtend',
     'directives.ngReviewEditor',
-    'directives.ngReviewThumbnail'
+    'directives.ngReviewList'
 ]);
 
 negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorScroll', function($scope, $http, $location, $anchorScroll){

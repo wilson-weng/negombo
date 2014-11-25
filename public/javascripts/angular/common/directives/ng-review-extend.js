@@ -8,7 +8,7 @@ angular.module('directives.ngReviewExtend', [])
                     scope.extendReview = true;
                     $('.main-column').css('width', (windowWidth - 300) + 'px');
                     $('body').animate(
-                        {left: (300 - windowWidth * 0.8) + 'px'}
+                        {left: (295 - windowWidth * 0.8) + 'px'}
                     );
                 };
                 scope.closeReview = function () {

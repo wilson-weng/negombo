@@ -1,0 +1,18 @@
+<div class="moment" ng-repeat="moment in moments|orderBy:'createTime'" ng-if="type=='thumbnail'">
+    <div class="upload-time" ng-if="!isTimeExist(moment)"><span>{{moment.createTime | date:'MMM. yyyy'}}</span></div>
+    <div class="uploader">{{moment.uploader=='undefined'? 'anonymous': moment.uploader}}</div>
+    <div class="moment-image" ng-repeat="image in moment.moments|orderBy:'index'">
+        <img ng-src="{{image.url}}">
+    </div>
+</div>
+
+<div class="moment" ng-repeat="moment in moments|orderBy:'createTime'" ng-if="type=='full'">
+    <div class="upload-time" ng-if="!isTimeExist(moment)"><span>{{moment.createTime | date:'MMM. yyyy'}}</span></div>
+    <div class="moment-image" ng-repeat="image in moment.moments|orderBy:'index'">
+        <img ng-src="{{image.url}}">
+        <div class="moment-description">
+            <p ng-if="image.index==0">{{moment.uploader=='undefined'? 'anonymous': moment.uploader}}</p>
+            {{image.description}}
+        </div>
+    </div>
+</div>

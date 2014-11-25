@@ -17,6 +17,7 @@ var database = require('./config/database'); // load the database config
 mongoose.connect(database.url);
 
 var reviews = require('./app/models/reviews');
+var settings = require('./app/models/settings');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -31,17 +32,27 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 var s3 = require('s3');
-var client = s3.createClient({
-    maxAsyncS3: 20,     // this is the default
-    s3RetryCount: 3,    // this is the default
-    s3RetryDelay: 1000, // this is the default
-    multipartUploadThreshold: 20971520, // this is the default (20 MB)
-    multipartUploadSize: 15728640, // this is the default (15 MB)
-    s3Options: {
-        accessKeyId: "AKIAIVUAXSGP757OYBMQ",
-        secretAccessKey: "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"
-    }
+var client;
+var accessKey = '';
+var secretKey = '';
+settings.findOne({key: 'aws-s3-access-key'}, function(err, data){
+    accessKey = data.value;
+    settings.findOne({key: 'aws-s3-secret-key'}, function(err, data) {
+        secretKey = data.value;
+        client = s3.createClient({
+            maxAsyncS3: 20,     // this is the default
+            s3RetryCount: 3,    // this is the default
+            s3RetryDelay: 1000, // this is the default
+            multipartUploadThreshold: 20971520, // this is the default (20 MB)
+            multipartUploadSize: 15728640, // this is the default (15 MB)
+            s3Options: {
+                accessKeyId: accessKey,
+                secretAccessKey: secretKey
+            }
+        });
+    });
 });
+
 
 app.use('/', routes);
 app.use(multer(

@@ -313,7 +313,9 @@ a {
   background-color: #308B5A;
   text-align: center;
   line-height: 88px;
-  cursor: pointer;
+  input:focus{
+    outline: none;
+  }
 }
 .review-column{
   width: 300px;
@@ -373,6 +375,41 @@ a {
         background-color: transparent;
       }
     }
+    .upload-time{
+      text-align: center;
+      span{
+        background-color: #E84343;
+        border-radius: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+    .moment{
+      margin-bottom: 40px;
+      border: solid 0px #E84343;
+      border-top-width: 2px;
+      .moment-image{
+        width: 100%;
+        margin-top: 20px;
+        display: table;
+        img{
+          float: left;
+          width: 486px;
+          margin-right: 40px;
+          margin-left: 40px;
+        }
+        .moment-description{
+          display: table-cell;
+          vertical-align: bottom;
+          width: 450px;
+          color: #308B5A;
+          p{
+            margin-bottom: 40px;
+          }
+        }
+      }
+    }
+
   }
 }
 .review-editor-panel{

@@ -1,7 +1,0 @@
-<div class="moment" ng-repeat="moment in moments">
-    <div class="upload-time" ng-if="!isTimeExist(moment)"><span>{{moment.createTime | date:'MMM. yyyy'}}</span></div>
-    <div class="uploader">{{moment.uploader=='undefined'? 'anonymous': moment.uploader}}</div>
-    <div class="moment-image" ng-repeat="image in moment.moments">
-        <img ng-src="{{image.url}}">
-    </div>
-</div>
