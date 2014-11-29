@@ -9,7 +9,6 @@ angular.module('directives.ngReviewList', [])
                 $http.get('/api/reviews')
                     .success(function(data) {
                         scope.moments = data;
-                        console.log(data);
                     })
                     .error(function(data) {
                         console.log('Error: ' + data);

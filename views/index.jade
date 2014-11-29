@@ -1,7 +1,7 @@
 extends layout
 block content
     div.main-column
-        div.header
+        div.header(id='header')
             div.logo
             div.navigate
                 div.navigate-item(ng-click="scrollToElement('profile')") WHO WE ARE
@@ -65,13 +65,14 @@ block content
                 img(src="images/srilanka_logo.png")
     div.review-column(ng-show='!extendReview')
         img.review-icon(src="images/icons/review_open.png", ng-click='openReview()')
-        div.review-header(ng-click='openReview()') Tell You Story
+        div.review-header(ng-click='edit()') Tell You Story
         div.review-container
             ng-review-list(review-type="thumbnail")
+        div.review-footer.review-header(ng-click='openReview()') View More Stories
     div.review-column-active(ng-show='extendReview', ng-review-extend)
         img.review-icon(src="images/icons/review_close.png", ng-click='closeReview()')
         div.review-container-extend
-            ng-review-editor
+            ng-review-editor(review-edit='editReview')
             ng-review-list(review-type="full")
 
 

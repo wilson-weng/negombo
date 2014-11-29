@@ -56,4 +56,11 @@ negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorS
         // call $anchorScroll()
         $anchorScroll();
     };
+    $scope.editReview = {};
+
+    $scope.edit = function(){
+        $scope.openReview();
+        console.log($scope.editReview);
+        $scope.editReview.addMoment();
+    }
 }]);

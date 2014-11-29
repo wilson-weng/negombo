@@ -2,14 +2,16 @@ angular.module('directives.ngReviewEditor', [])
     .directive('ngReviewEditor', ['$http', function ($http) {
         return {
             restrict: 'E',
-            scope:{},
+            scope:{reviewEdit: '='},
             templateUrl:  '/javascripts/angular/common/directives/ng-review-editor/editor.tpl.html',
             link: function (scope, element, attrs) {
                 scope.moments = [];
                 scope.uploadSuccess = 0;
+                scope.edit = scope.reviewEdit || {};
                 scope.addMoment = function(){
                     scope.moments.push({index: scope.moments.length});
                 };
+                scope.edit.addMoment = scope.addMoment;
                 scope.setFlow = function (flow) {
                     scope.flow = flow;
                     scope.flow.files = scope.flow.files.slice(0, scope.moments.length);
