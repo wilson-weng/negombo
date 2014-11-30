@@ -6,12 +6,23 @@ angular.module('directives.ngReviewExtend', [])
                 scope.openReview = function () {
                     var windowWidth = $window.innerWidth;
                     scope.extendReview = true;
-                    $('.main-column').css('width', (windowWidth - 300) + 'px');
+                    $('.main-column').css({
+                        'width': (windowWidth - 300) + 'px',
+                        'float': 'left'
+                    });
+                    $('.review-container-extend').css({
+                        'width': windowWidth*0.8 + 'px',
+                        'height': $window.innerHeight
+                    });
                     scope.scrollToElement('header');
                     $('body').animate(
                         {left: (295 - windowWidth * 0.8) + 'px'}
                     );
-                    $('body').css('overflow-y', 'hidden');
+                    $('body').css({
+                        'overflow-y': 'hidden',
+                        'display': 'block',
+                        'width': (windowWidth*1.8 - 300)+'px'
+                    });
                 };
                 scope.closeReview = function () {
                     $('body').css('overflow-y', 'scroll');
