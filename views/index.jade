@@ -72,7 +72,7 @@ block content
     div.review-column-active(ng-show='extendReview', ng-review-extend)
         img.review-icon(src="images/icons/review_close.png", ng-click='closeReview()')
         div.review-container-extend
-            ng-review-editor(review-edit='editReview', onSuccess='reviews.refresh()')
+            ng-review-editor(review-edit='editReview', onSuccess='reviews.refresh')
             ng-review-list(review-type="full", review-list="reviews")
 
 

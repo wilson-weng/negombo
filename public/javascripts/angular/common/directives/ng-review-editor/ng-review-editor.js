@@ -20,7 +20,6 @@ angular.module('directives.ngReviewEditor', [])
                     var current = new Date();
                     $http.post('/api/upload/init', {'uploader': scope.uploader, 'createTime': current})
                         .success(function(data) {
-                            console.log(data);
                             scope.uploadSuccess = scope.moments.length;
                             scope.flow.opts.target = '/api/upload';
                             scope.flow.opts.chunkSize = 20 * 1024 * 1024;
@@ -34,10 +33,9 @@ angular.module('directives.ngReviewEditor', [])
                         });
                 };
                 scope.uploadSuccsess = function(message){
-                    console.log(message);
                     scope.uploadSuccess += 1;
-                    if(scope.uploadSuccess == scope.moments.length){
-                        scope.onSuccess();
+                    if(scope.uploadSuccess == scope.moments.length+1){
+                        scope.$parent.reviews.refresh();
                     }
                     scope.exitEdit();
                 };

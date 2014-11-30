@@ -28,7 +28,12 @@ router.get('/api/tours', function(req, res) {
 });
 
 router.get('/api/reviews', function(req, res) {
-    reviews.find(function(err, reviews) {
+    var page = 1;
+    var pageNum = 10;
+    if('page' in req.query){
+        page = req.query.page;
+    }
+    reviews.find({}).sort({createTime:-1}).skip((page-1)*pageNum).limit(page*pageNum).execFind(function(err, reviews) {
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err)
             res.send(err);

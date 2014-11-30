@@ -60,7 +60,7 @@ negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorS
     $scope.reviews = {};
     $scope.edit = function(){
         $scope.openReview();
-        console.log($scope.editReview);
+        console.log($scope.reviews);
         $scope.editReview.addMoment();
     }
 }]);
