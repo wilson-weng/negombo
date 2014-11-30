@@ -63,8 +63,32 @@ app.use(multer(
     }
 ));
 var bucket = "negombo";
+app.post('/api/upload/init',function(req,res){
+    var uploader = req.body.uploader;
+    var createTime = req.body.createTime;
+    console.log('this is save', uploader, createTime);
+    reviews.count({uploader: uploader, createTime: createTime}, function(error, count) {
+        if (count == 0) {
+            var review = new reviews({
+                uploader: uploader,
+                createTime: createTime,
+                moments: []
+            });
+            review.save(function (err, review) {
+                if (err) return console.error(err);
+                console.log('save', review);
+                res.json(review);
+            });
+        }else{
+            res.send('error');
+        }
+    });
+});
 app.post('/api/upload',function(req,res){
     var file = req.files.file;
+    var moments = JSON.parse(req.body.moments);
+    var momentId = req.body.momentId;
+    console.log('this is update', momentId);
     var params = {
         localFile: file.path,
         s3Params: {
@@ -72,18 +96,14 @@ app.post('/api/upload',function(req,res){
             Key: "review/"+file.name
         }
     };
-    var uploader = client.uploadFile(params);
-    uploader.on('error', function(err) {
+    var s3Uploader = client.uploadFile(params);
+    s3Uploader.on('error', function(err) {
         console.error("unable to upload:", err.stack);
     });
-    uploader.on('end', function() {
-        console.log("done uploading");
+    s3Uploader.on('end', function() {
         fs.unlink(file.path, function (err) {
             if (err) throw err;
         });
-        var moments = JSON.parse(req.body.moments);
-        var uploader = req.body.uploader;
-        var createTime = req.body.createTime;
         var index = 0;
         var description = '';
         for(var i=0; i<moments.length; i++){
@@ -93,37 +113,17 @@ app.post('/api/upload',function(req,res){
             }
         }
         var url = s3.getPublicUrlHttp(bucket, "review/"+file.name);
-        console.log(index, uploader, url, description, createTime);
-        reviews.count({uploader: uploader, createTime: createTime}, function(error, count){
-            if(count==0){
-                var review = new reviews({
-                    uploader: uploader,
-                    createTime: createTime,
-                    moments: [{
-                        index: index,
-                        url: url,
-                        keyName: file.name,
-                        description: description
-                    }]
-                });
-                review.save(function (err, review) {
-                    if (err) return console.error(err);
-                });
-            }else{
-                reviews.update({uploader: uploader, createTime: createTime},
-                    {$push: {"moments": {index: index,
-                        url: url,
-                        keyName: file.name,
-                        description: description
-                    }}},function(err, model){
-                        console.log(err);
-                    }
-                )
+        reviews.update({_id: momentId},
+            {$push: {"moments": {index: index,
+                url: url,
+                keyName: file.name,
+                description: description
+            }}},function(err, review){
+                if (err) return console.error(err);
+                console.log('this is update', review);
+                res.json(review);
             }
-        });
-
-
-        res.json(index);
+        )
     });
 });
 

@@ -2,30 +2,37 @@ angular.module('directives.ngReviewList', [])
     .directive('ngReviewList', ['$http', '$filter', function ($http, $filter) {
         return {
             restrict: 'E',
-            scope: {type: '@reviewType'},
+            scope: {type: '@reviewType', reviewList: '='},
             templateUrl: '/javascripts/angular/common/directives/ng-review-list/reviews.tpl.html',
             link: function (scope, element, attrs) {
                 scope.months = [];
-                $http.get('/api/reviews')
-                    .success(function(data) {
-                        scope.moments = data;
-                    })
-                    .error(function(data) {
-                        console.log('Error: ' + data);
-                    });
-                scope.isTimeExist = function(moment){
-                    if('showDate' in moment){
-                        return moment.showDate;
-                    }
-                    var time = $filter('date')(moment.createTime, 'MMM. yyyy');
-                    if(scope.months.indexOf(time)==-1){
-                        scope.months.push(time);
-                        moment.showDate = false;
-                        return false;
-                    }else{
-                        moment.showDate = true;
-                        return true;
-                    }
+                scope.forParent = scope.reviewList || {};
+                scope.refreshList = function(){
+                    $http.get('/api/reviews')
+                        .success(function(data) {
+                            scope.months = [];
+                            scope.moments = data;
+                            scope.moments = $filter('orderBy')(scope.moments, '-createTime');
+                            for(var i=0; i<scope.moments.length;i++){
+                                var time = $filter('date')(scope.moments[i].createTime, 'MMM. yyyy');
+                                if(scope.months.indexOf(time)<0){
+                                    scope.months.push(time);
+                                    scope.moments[i].showDate = true;
+                                    console.log(scope.moments[i]);
+                                }else{
+                                    scope.moments[i].showDate = false;
+                                }
+                            };
+                        })
+                        .error(function(data) {
+                            console.log('Error: ' + data);
+                        });
+                };
+                scope.refreshList();
+                scope.forParent.refresh = scope.refreshList();
+                scope.forParent.reviewList = scope.moments;
+                scope.isShowDate = function(moment){
+                    return moment.showDate;
                 }
             }
         }

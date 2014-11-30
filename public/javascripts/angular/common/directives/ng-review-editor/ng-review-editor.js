@@ -2,7 +2,7 @@ angular.module('directives.ngReviewEditor', [])
     .directive('ngReviewEditor', ['$http', function ($http) {
         return {
             restrict: 'E',
-            scope:{reviewEdit: '='},
+            scope:{reviewEdit: '=', onSuccess: '&'},
             templateUrl:  '/javascripts/angular/common/directives/ng-review-editor/editor.tpl.html',
             link: function (scope, element, attrs) {
                 scope.moments = [];
@@ -17,16 +17,36 @@ angular.module('directives.ngReviewEditor', [])
                     scope.flow.files = scope.flow.files.slice(0, scope.moments.length);
                 };
                 scope.upload = function(){
-                    scope.uploadSuccess = scope.moments.length;
-                    scope.flow.opts.target = '/api/upload';
-                    scope.flow.opts.chunkSize = 20 * 1024 * 1024;
-                    scope.flow.opts.forceChunkSize = true;
-                    scope.flow.opts.testChunks = false;
-                    scope.flow.opts.query = {'moments': JSON.stringify(scope.moments), 'uploader': scope.uploader, 'createTime': new Date()};
-                    scope.flow.upload();
+                    var current = new Date();
+                    $http.post('/api/upload/init', {'uploader': scope.uploader, 'createTime': current})
+                        .success(function(data) {
+                            console.log(data);
+                            scope.uploadSuccess = scope.moments.length;
+                            scope.flow.opts.target = '/api/upload';
+                            scope.flow.opts.chunkSize = 20 * 1024 * 1024;
+                            scope.flow.opts.forceChunkSize = true;
+                            scope.flow.opts.testChunks = false;
+                            scope.flow.opts.query = {'moments': JSON.stringify(scope.moments), 'momentId': data._id};
+                            scope.flow.upload();
+                        })
+                        .error(function(data) {
+                            console.log('Error: ' + data);
+                        });
                 };
-                scope.onSuccsess = function(message){
+                scope.uploadSuccsess = function(message){
                     console.log(message);
+                    scope.uploadSuccess += 1;
+                    if(scope.uploadSuccess == scope.moments.length){
+                        scope.onSuccess();
+                    }
+                    scope.exitEdit();
+                };
+                scope.exitEdit = function(){
+                    scope.moments = [];
+                    scope.uploadSuccess = 0;
+                    if(scope.flow){
+                        scope.flow.cancel();
+                    }
                 };
                 scope.resizeBeforeUpload = function(flowFile) {
                     var that = flowFile;
@@ -36,7 +56,6 @@ angular.module('directives.ngReviewEditor', [])
                         parts.splice(parts.length-1, 0, new Date().getTime());
                         that.name = parts.join('.');
                         scope.moments[scope.moments.length-1].keyName = that.name;
-                        console.log(that.name);
                         loadImage(that.file,
                             function (canvas) {
                                 canvas.toBlob(
@@ -52,8 +71,8 @@ angular.module('directives.ngReviewEditor', [])
                             {
                                 canvas: true,
                                 crop: false,
-                                maxWidth: 300,
-                                maxHeight: 300
+                                maxWidth: 486,
+                                maxHeight: 486
                             }
                         );
                         return false;
