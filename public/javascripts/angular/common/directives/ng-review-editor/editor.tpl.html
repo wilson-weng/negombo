@@ -3,7 +3,7 @@
      flow-file-added="resizeBeforeUpload($file)"
      flow-files-submitted="setFlow($flow)"
      flow-file-success="uploadSuccsess($message)">
-    <div class="review-editor-panel" ng-repeat="moment in moments" >
+    <div class="review-editor-panel animate-repeat" ng-repeat="moment in moments">
         <div class="photo-area" ng-hide="$flow.files.length>=$index+1" flow-btn flow-attrs="{accept:'image/*'}">
             <div class="photo-upload" ng-mouseenter="uploadActive=true" ng-mouseleave="uploadActive=false">
                 <img ng-src="images/icons/uploadphoto_icon.png" ng-show="!uploadActive">

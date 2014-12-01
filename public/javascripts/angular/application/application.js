@@ -1,5 +1,6 @@
 var negombo = angular.module('negombo', [
     'flow',
+    'ngAnimate',
     'angularSoundManager',
     'directives.ngSwing',
     'directives.ngFullPage',
