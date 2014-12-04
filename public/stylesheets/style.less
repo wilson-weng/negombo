@@ -154,7 +154,7 @@ body {
           img {
             margin-top: 4px;
           }
-          p {
+          span {
             margin: 0;
             line-height: 65px;
           }
@@ -425,7 +425,7 @@ a {
   width: 100%;
   height: 428px;
   background-color: #335E49;
-  display: table;
+  display: inline-block;
   .photo-area{
     float: left;
     width: 480px;
@@ -486,9 +486,12 @@ a {
       background-color: transparent;
     }
   }
-  textarea:focus{
+  textarea:focus {
     outline: 0;
   }
+}
+.fill-gap{
+  margin-top: -5px;
 }
 .animate-repeat {
   line-height:40px;
@@ -498,21 +501,20 @@ a {
 
 .animate-repeat.ng-enter,
 .animate-repeat.ng-leave {
-  -webkit-transition: 0.5s linear all;
-  -moz-transition: 0.5s linear all;
-  -o-transition: 0.5s linear all;
-  transition: 0.5s linear all;
+  -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+  transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
 
 .animate-repeat.ng-leave.ng-leave-active,
 .animate-repeat.ng-enter {
-  opacity:0;
-  max-height:0;
+  height:0;
 }
 
 .animate-repeat.ng-leave,
 .animate-repeat.ng-move.ng-move-active,
 .animate-repeat.ng-enter.ng-enter-active {
-  opacity:1;
-  max-height:40px;
+  height: 428px;
 }

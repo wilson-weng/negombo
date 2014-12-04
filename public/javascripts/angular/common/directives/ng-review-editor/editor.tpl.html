@@ -3,7 +3,7 @@
      flow-file-added="resizeBeforeUpload($file)"
      flow-files-submitted="setFlow($flow)"
      flow-file-success="uploadSuccsess($message)">
-    <div class="review-editor-panel animate-repeat" ng-repeat="moment in moments">
+    <div class="review-editor-panel animate-repeat" ng-repeat="moment in moments" ng-class="$index==0? '':'fill-gap'">
         <div class="photo-area" ng-hide="$flow.files.length>=$index+1" flow-btn flow-attrs="{accept:'image/*'}">
             <div class="photo-upload" ng-mouseenter="uploadActive=true" ng-mouseleave="uploadActive=false">
                 <img ng-src="images/icons/uploadphoto_icon.png" ng-show="!uploadActive">
@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="review-header" style="cursor: pointer;" ng-click='addMoment()' ng-hide="moments.length"> + Tell You Story</div>
-<div class="review-header" ng-show="moments.length">
+<div class="review-header fill-gap" ng-show="moments.length">
     <span ng-click="exitEdit()"> Cancel</span>
     <input type="text" placeholder="your name" ng-model="uploader"/>
     <span ng-click="upload()" style="cursor: pointer;">& Save</span>
