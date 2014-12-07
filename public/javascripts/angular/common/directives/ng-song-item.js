@@ -1,5 +1,5 @@
 angular.module('directives.ngSongItem', [])
-    .directive('ngSongItem', function() {
+    .directive('ngSongItem', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -9,12 +9,14 @@ angular.module('directives.ngSongItem', [])
                     }else{
                         scope.icon = 'play';
                     }
-                    element.find('p').css({'lineHeight': '15px'});
+                    element.find('p').css({'display': 'none'});
                     scope.$apply();
                 });
                 element.on("mouseleave", function(){
                     scope.icon = 'none';
-                    element.find('p').css({'lineHeight': '65px'});
+                    $timeout(function() {
+                        element.find('p').css({'display': 'block'});
+                    }, 600);
                     scope.$apply();
                 });
                 scope.activeItem = function(){
@@ -28,4 +30,4 @@ angular.module('directives.ngSongItem', [])
                 };
             }
         }
-    });
+    }]);
