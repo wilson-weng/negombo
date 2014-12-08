@@ -327,7 +327,7 @@ a {
   height: 88px;
   font-size: 18px;
   color: #ffffff;
-  background-color: #308B5A;
+  background-color: #32AB6A;
   text-align: center;
   line-height: 88px;
   input:focus{
@@ -388,16 +388,26 @@ a {
   display: table-cell;
   .review-container-extend{
     position: absolute;
+    width: 100%;
     background-color: #F8F8F8;
     overflow-y: scroll;
     .review-header{
       width: 100%;
       input{
-        border-width: 0px 0px 1px 0px;
-        border-color: #ffffff;
-        font-size: 18px;
-        line-height: 20px;
+        padding-left: 20px;
+        border: solid 1px rgba(255, 255, 255, 0.6);
+        font-size: 20px;
+        width: 310px;
+        line-height: 51px;
         background-color: transparent;
+        &:focus{
+          border: solid 2px rgba(255, 255, 255, 1);
+        }
+      }
+      .save-button{
+        cursor: pointer;
+        padding: 16px 9px;
+        border: solid 2px #ffffff;
       }
     }
     .upload-time{
@@ -424,11 +434,7 @@ a {
           margin-left: 40px;
         }
         .moment-description{
-          display: table-cell;
-          vertical-align: bottom;
-          width: 450px;
           color: #308B5A;
-          float: left;
           p{
             margin-bottom: 40px;
           }
@@ -441,15 +447,26 @@ a {
 .review-editor-panel{
   width: 100%;
   height: 428px;
-  background-color: #335E49;
+  background-color: #308c5a;
   display: inline-block;
+  .cancel-edit{
+    width: 54px;
+    height: 54px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    background-image: url(../images/icons/close_icon.png);
+    &:hover{
+      background-image: url(../images/icons/close_icon_hover.png);
+    }
+  }
   .photo-area{
     float: left;
-    width: 480px;
-    height: 360px;
+    width: 474px;
+    height: 313px;
     margin: 40px;
-    border-radius:25px;
-    border: 2px dashed #153626;
+    background-color: rgba(255, 255, 255, 0.3);
     position: relative;
     .photo-upload{
       margin-left: 108px;
@@ -458,7 +475,7 @@ a {
         margin-left: 100px;
       }
       p{
-        color: #153626;
+        color: #308c5a;
         font-size: 18px;
       }
     }
@@ -479,9 +496,7 @@ a {
       color: #ffffff;
       cursor: pointer;
       line-height: 40px;
-      font-size: 18px;
-      border-radius:10px;
-      border: 2px dashed #153626;
+      font-size: 22px;
     }
   }
   .text-area{
@@ -489,16 +504,16 @@ a {
       display: block;
       font-family: 'Marck Script',cursive;
       font-size: 18px;
-      line-height: 50px;
+      line-height: 30px;
       resize: none;
-      height: 333px;
-      width: 337px;
-      margin: 90px auto 0;
-      background-image: -moz-linear-gradient(top , transparent, transparent 49px,#329F64 0px);
-      background-image:  -webkit-linear-gradient(top, transparent, transparent 49px, #329F64 0);
-      -webkit-background-size:  100% 50px;
-      background-size: 100% 50px;
-      background-position-y: -10px;
+      height: 220px;
+      width: 335px;
+      margin: 45px 20px 0px;
+      background-image: -moz-linear-gradient(top , transparent, transparent 29px,#57AA7D 0px);
+      background-image:  -webkit-linear-gradient(top, transparent, transparent 29px, #57AA7D 0);
+      -webkit-background-size:  100% 30px;
+      background-size: 100% 30px;
+      background-position-y: -2px;
       border: 0;
       background-color: transparent;
     }
@@ -508,7 +523,7 @@ a {
   }
 }
 .fill-gap{
-  margin-top: -5px;
+  margin-top: -8px;
 }
 .animate-repeat {
   line-height:40px;
@@ -553,4 +568,17 @@ a {
 
 .animate-show.ng-hide {
   opacity:0;
+}
+
+@media screen and ( max-width: 1080px ) {
+  body{
+    display: block;
+  }
+  .main-column{
+    display: block;
+  }
+  .review-column-active{
+    display: block;
+    margin-top: -8px;
+  }
 }

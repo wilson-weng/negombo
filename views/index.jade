@@ -63,14 +63,14 @@ block content
                     p.contact-detail Phone: +94 77 2523314
             div.logo-contact
                 img(src="images/srilanka_logo.png")
-    div.review-column(ng-show='!extendReview')
+    div.review-column(ng-hide='extendReview || _isMobile()')
         img.review-icon(src="images/icons/review_open.png", ng-click='openReview()')
         div.review-header(ng-click='edit()') Tell You Story
         div.review-container
             ng-review-list(review-type="thumbnail")
         div.review-footer.review-header(ng-click='openReview()') View More Stories
-    div.review-column-active(ng-show='extendReview', ng-review-extend)
-        img.review-icon(src="images/icons/review_close.png", ng-click='closeReview()')
+    div.review-column-active(ng-show='extendReview || _isMobile()', ng-review-extend)
+        img.review-icon(src="images/icons/review_close.png", ng-click='closeReview()' ng-hide='_isMobile()')
         div.review-container-extend
             ng-review-editor(review-edit='editReview', onSuccess='reviews.refresh')
             ng-review-list(review-type="full", review-list="reviews")

@@ -4,14 +4,14 @@
      flow-files-submitted="setFlow($flow)"
      flow-file-success="uploadSuccsess($message)">
     <div class="review-editor-panel animate-repeat" ng-repeat="moment in moments" ng-class="$index==0? '':'fill-gap'">
-        <div class="photo-area" ng-hide="$flow.files.length>=$index+1" flow-btn flow-attrs="{accept:'image/*'}">
+        <div class="cancel-edit" ng-click="exitEdit()"></div>
+        <div class="photo-area" ng-hide="$flow.files.length>=$index+1" flow-btn flow-drop flow-attrs="{accept:'image/*'}">
             <div class="photo-upload" ng-mouseenter="uploadActive=true" ng-mouseleave="uploadActive=false">
                 <img ng-src="images/icons/uploadphoto_icon.png" ng-show="!uploadActive">
                 <img ng-src="images/icons/uploadphoto_icon_hover.png" ng-show="uploadActive">
                 <p>Choose a photo or drag photo in</p>
             </div>
         </div>
-
         <div class="photo-display" ng-show="$flow.files.length>=$index+1">
             <img flow-img="$flow.files[$index]" />
             <div class="photo-add" ng-click="addMoment()" ng-hide="!$last">Add a new photo</div>
@@ -23,7 +23,6 @@
 </div>
 <div class="review-header" style="cursor: pointer;" ng-click='addMoment()' ng-hide="moments.length"> + Tell You Story</div>
 <div class="review-header fill-gap" ng-show="moments.length">
-    <span ng-click="exitEdit()"> Cancel</span>
     <input type="text" placeholder="your name" ng-model="uploader"/>
-    <span ng-click="upload()" style="cursor: pointer;">& Save</span>
+    <span ng-click="upload()" class="save-button">Save</span>
 </div>
