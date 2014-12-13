@@ -1,78 +1,24 @@
 extends layout
 block content
-    div.main-column
-        div.header(id='header')
-            div.logo
-            div.navigate
-                div.navigate-item(ng-click="scrollToElement('profile')") WHO WE ARE
-                div.navigate-item(ng-click="scrollToElement('tour')") WHAT WE DO
-                div.navigate-item(ng-click="scrollToElement('contact')") CONTACT
-        div.main-container(ng-full-page)
-            div.main-poster
-                img(ng-swing, src='images/banner_pic.jpg')
-            div.main-title We Sing Together
-                div.main-subtitle
-                    span.underscore Negombo,
-                    |  Sri Lanka
-        div.profile-container(id='profile')
-            div.profile-jumbo(ng-move-profile)
-                div.profile-title Local Music Community
-                div.profile-image
-                    img(src='images/profile_michael_pic.png')
-                    img.profile-square(src='images/profile_square_michael.png')
-                    div.profile-name Michael
-                    p I used to be a fisherman, but the influx of tourists changed my life. I learned my English from them and most importantly, I exploit my talent of music by the tourists. They teach me guitar drum and singing. Last year I formed a band with one of my friend in Negombo and a musician from Mexico. The band is called “Api Sindu Kiemu” which in Sinhalese means “Let’s sing together”. We aims to give performances that open to all the people to join by singing, dancing or playing other instruments, breaking the wall between the audiences and the performers.
-                      | I enjoy hanging out with tourists since I can always open my horizon and learn a lot from them, and I’m also more than willing to share my talent on music to them.
-                div.profile-image
-                    img(src='images/profile_seba_pic.png')
-                    img.profile-square(src='images/profile_square_seba.png')
-                    div.profile-name Seba
-                    p Six years ago, I was a singer. I won the Jubilee Super Star Competition of Sri Lanka, the reward is either a trip to Singapore or some cash. I choose the cash to hold a beach party and invite all my friends to enjoy the food and music. Going to Singapore only makes myself happy, but a party makes everyone happy, which is what I want.
-                      | Now, I’m a tuk-tuk driver. I guide travellers around Negombo, I sing to them and hold beach party for them. I love this job because now I can share happiness to people all around the world.
-            div.profile-music
-                img.song-area-icon(src='images/music_icon.png')
-                div.song-area
-                    div.song-list
-                        div.song-item(ng-repeat="song in songs", ng-song-item)
-                            img.animate-show(src='images/icons/music_play_icon.png', ng-if='icon=="play"', music-player="play", add-song="song", ng-click='activeItem()')
-                            img.animate-show(src='images/icons/music_stop_icon.png', ng-if='icon=="stop"', stop-music, , ng-click='recoverItem()')
-                            p {{ song.title }}
-                sound-manager
-        div.tour-container(id='tour')
-            div.tour-header
-                div.tour-title Experience With Local Musicians
-                div.tour-tab-area
-                    div.tour-tab(ng-repeat="tour in tours", ng-class="{active: currentTour==tour}") {{tour}}
-            div.slide-area
-                ng-slide
-                    div.slide-item(ng-repeat="slide in tourSlides[currentTour] | orderBy:'page':reverse")
-                        p(ng-if="slide.description_position=='top'") {{slide.description}}
-                        img(ng-src="{{slide.image}}")
-                        p(ng-if="slide.description_position=='bottom'") {{slide.description}}
-        div.contact-container(id='contact')
-            div.contact-banner
-                img(src="images/contact/contact_michael.png")
-                div.contact-info
-                    p.contact-name Michael
-                    p.contact-detail Email: ch_risty_mic@hotmail.com
-                    p.contact-detail Phone: +94 76 7540789
-            div.contact-banner
-                img(src="images/contact/contact_seba.png")
-                div.contact-info
-                    p.contact-name Seba
-                    p.contact-detail Phone: +94 77 2523314
-            div.logo-contact
-                img(src="images/srilanka_logo.png")
-    div.review-column(ng-hide='extendReview || _isMobile()')
-        img.review-icon(src="images/icons/review_open.png", ng-click='openReview()')
-        div.review-header(ng-click='edit()') Tell You Story
-        div.review-container
-            ng-review-list(review-type="thumbnail")
-        div.review-footer.review-header(ng-click='openReview()') View More Stories
-    div.review-column-active(ng-show='extendReview || _isMobile()', ng-review-extend)
-        img.review-icon(src="images/icons/review_close.png", ng-click='closeReview()' ng-hide='_isMobile()')
-        div.review-container-extend
-            ng-review-editor(review-edit='editReview', onSuccess='reviews.refresh')
-            ng-review-list(review-type="full", review-list="reviews")
-
-
+    div.home-header
+        img.main-logo(src="images/home/veilup_logo.png")
+    div.home-container
+        img(src="images/home/home_bg.jpg")
+        div.main-panel
+            div.title
+                h1 Meet Brilliant Local People!
+                p we strives to discover interesting and talented people in tourist areas all over the world.
+                p  We connect them to the rest of the world by building fascinating personal website to tell their stories and to show the amazing activities that they are eager to share with tourists.
+                p  Follow us and travel with brilliant local people!
+        a.enter-path(href="wesingtogether")
+            div.enter-country Sri Lanka
+            img(src="images/home/homepage_linkimag.png")
+            div.enter-city Negombo
+            div.enter-people
+                img(src="images/home/contact_michael.png")
+                img(src="images/home/contact_seba.png")
+    div.home-footer
+        p
+            | If you have met any interesting locals during your trip whom you found worth recommending to other travellers, do let us know by email via
+            a(href="mailto:contact@veilup.com")   contact@veilup.com
+            | , they may got a compelling personal website specially designed for them!

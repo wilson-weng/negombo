@@ -6,7 +6,11 @@ var settings = require('../app/models/settings');
 var reviews = require('../app/models/reviews');
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Negombo' });
+    res.render('index', { title: 'Veilup' });
+});
+
+router.get('/wesingtogether', function(req, res) {
+    res.render('negombo', { title: 'Negombo' });
 });
 
 router.get('/api/songs', function(req, res) {
