@@ -34,8 +34,8 @@ block content
                 div.song-area
                     div.song-list
                         div.song-item(ng-repeat="song in songs", ng-song-item)
-                            img.animate-show(src='images/icons/music_play_icon.png', ng-show='icon=="play"', music-player="play", add-song="song", ng-click='activeItem()')
-                            img.animate-show(src='images/icons/music_stop_icon.png', ng-show='icon=="stop"', stop-music, , ng-click='recoverItem()')
+                            img.animate-show(src='images/icons/music_play_icon.png', ng-if='icon=="play"', music-player="play", add-song="song", ng-click='activeItem()')
+                            img.animate-show(src='images/icons/music_stop_icon.png', ng-if='icon=="stop"', stop-music, , ng-click='recoverItem()')
                             p {{ song.title }}
                 sound-manager
         div.tour-container(id='tour')
