@@ -32,6 +32,7 @@ negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorS
         .error(function(data) {
             console.log('Error: ' + data);
         });
+
     $scope.totalSlides = 0;
     $http.get('/api/tours')
         .success(function(data) {
@@ -53,7 +54,11 @@ negombo.controller('ApplicationCtrl', ['$scope', '$http', '$location', '$anchorS
         .error(function(data) {
             console.log('Error: ' + data);
         });
-
+    $scope.switchTour = function(tour){
+        $scope.currentTour = tour;
+        $scope.slideIndex = 0;
+        $scope.totalSlides = $scope.tourSlides[$scope.currentTour].length;
+    };
     $scope.scrollToElement = function(hash) {
         // set the location.hash to the id of
         // the element you wish to scroll to.

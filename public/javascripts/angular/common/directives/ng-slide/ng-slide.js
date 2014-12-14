@@ -32,6 +32,11 @@ angular.module('directives.ngSlide', [])
                 scope.$watch('totalSlides', function(){
                     //304 is the right column width plus border, 20 is the margin left
                     hiddenWidth = -601*scope.totalSlides + $window.innerWidth-304-20;
+                    if(-scope.totalSlides * slideWidth < $window.innerWidth-304-20){
+                        scope.showSlideRightIcon = false;
+                    }else{
+                        scope.showSlideRightIcon = true;
+                    }
                 });
                 scope.active = function(side){
                     scope.activeIcon = side;

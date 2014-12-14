@@ -42,9 +42,9 @@ block content
             div.tour-header
                 div.tour-title Experience With Local Musicians
                 div.tour-tab-area
-                    div.tour-tab(ng-repeat="tour in tours", ng-class="{active: currentTour==tour}") {{tour}}
+                    div.tour-tab(ng-repeat="tour in tours", ng-class="{active: currentTour==tour}" ng-click="switchTour(tour)") {{tour}}
             div.slide-area
-                ng-slide
+                ng-slide(length="totalSlide")
                     div.slide-item(ng-repeat="slide in tourSlides[currentTour] | orderBy:'page':reverse")
                         p(ng-if="slide.description_position=='top'") {{slide.description}}
                         img(ng-src="{{slide.image}}")
