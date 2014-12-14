@@ -31,7 +31,8 @@ angular.module('directives.ngReviewExtend', [])
                         {
                             complete: function(){
                                 scope.extendReview = false;
-                                scope.$apply();
+                                scope.reviews.refresh();
+                                console.log('digest!');
                             }
                         }
                     );

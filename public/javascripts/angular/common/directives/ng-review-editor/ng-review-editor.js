@@ -1,5 +1,5 @@
 angular.module('directives.ngReviewEditor', [])
-    .directive('ngReviewEditor', ['$http', function ($http) {
+    .directive('ngReviewEditor', ['$http', '$timeout', function ($http, $timeout) {
         return {
             restrict: 'E',
             scope:{reviewEdit: '=', onSuccess: '&'},
@@ -18,6 +18,7 @@ angular.module('directives.ngReviewEditor', [])
                 };
                 scope.upload = function(){
                     var current = new Date();
+                    scope.isProcessing = true;
                     $http.post('/api/upload/init', {'uploader': scope.uploader, 'createTime': current})
                         .success(function(data) {
                             scope.uploadSuccess = scope.moments.length;
@@ -35,9 +36,10 @@ angular.module('directives.ngReviewEditor', [])
                 scope.uploadSuccsess = function(message){
                     scope.uploadSuccess += 1;
                     if(scope.uploadSuccess == scope.moments.length+1){
-                        scope.$parent.reviews.refresh();
+                        $timeout(scope.$parent.reviews.refresh, 2000);
                     }
                     scope.exitEdit();
+                    scope.isProcessing = false;
                 };
                 scope.exitEdit = function(){
                     scope.moments = [];

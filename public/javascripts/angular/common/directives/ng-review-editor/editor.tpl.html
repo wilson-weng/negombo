@@ -24,5 +24,6 @@
 <div class="review-header" style="cursor: pointer;" ng-click='addMoment()' ng-hide="moments.length"> + Tell You Story</div>
 <div class="review-header fill-gap" ng-show="moments.length">
     <input type="text" placeholder="your name" ng-model="uploader"/>
-    <span ng-click="upload()" class="save-button">Save</span>
+    <span ng-click="upload()" ng-if="!isProcessing" class="save-button">Save</span>
+    <div ng-if="isProcessing" class="loading-icon "></div>
 </div>
